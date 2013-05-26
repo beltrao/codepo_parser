@@ -6,15 +6,13 @@ puts 'Initializing DB'
 @db = SQLite3::Database.new('postcodes.sqlite3')
 
 # Codelist.xls
-@db.execute 'DROP TABLE IF EXISTS es;'
-@db.execute 'CREATE TABLE es (
+@db.execute 'CREATE TABLE IF NOT EXISTS es (
   e TEXT PRIMARY KEY,
   name TEXT
 );'
 
 # Postcodes API
-@db.execute 'DROP TABLE IF EXISTS areas;'
-@db.execute 'CREATE TABLE areas (
+@db.execute 'CREATE TABLE IF NOT EXISTS areas (
   code TEXT PRIMARY KEY,
   lat double,
   lon double,
@@ -24,8 +22,7 @@ puts 'Initializing DB'
   district_id INTEGER
 );'
 
-@db.execute 'DROP TABLE IF EXISTS postcodes;'
-@db.execute 'CREATE TABLE postcodes (
+@db.execute 'CREATE TABLE IF NOT EXISTS postcodes (
   code TEXT PRIMARY KEY,
   lat double,
   lon double
