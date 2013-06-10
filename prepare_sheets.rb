@@ -4,18 +4,22 @@ require 'debugger'
 load 'init_db.rb'
 
 EXCLUDED_CODELIST_SHEETS = %w[Metadata AREA_CODES]
-codelist_spreadsheet = Roo::Excel.new('codepo_gb/Doc/Codelist.xls')
+CODELIST_FILE = 'codepo_gb/Doc/Codelist.xls'
 
-codelist_spreadsheet.sheets.each do |codelist_sheet_name|
-  next if EXCLUDED_CODELIST_SHEETS.include?(codelist_sheet_name)
+raise "#{CODELIST_FILE} not exists!" unless File.exists?(CODELIST_FILE)
 
-  puts "Working on #{codelist_sheet_name}"
-  codelist_spreadsheet.default_sheet = codelist_sheet_name
+codelist = Roo::Excel.new(CODELIST_FILE)
+
+codelist.sheets.each do |sheet_name|
+  next if EXCLUDED_CODELIST_SHEETS.include?(sheet_name)
+
+  puts "Working on #{sheet_name}"
+  codelist.default_sheet = sheet_name
 
   row_idx = 1
-  while row_idx < codelist_spreadsheet.last_row do
-    name = codelist_spreadsheet.cell(row_idx, 1)
-    e = codelist_spreadsheet.cell(row_idx, 2)
+  while row_idx < codelist.last_row do
+    name = codelist.cell(row_idx, 1)
+    e = codelist.cell(row_idx, 2)
     query = "INSERT INTO es (e, name) VALUES ('#{e.gsub("'", "\\'")}', '#{name.gsub("'", "\\'")}');"
     begin
       @db.execute query
@@ -29,4 +33,4 @@ codelist_spreadsheet.sheets.each do |codelist_sheet_name|
   end
 end
 
-puts 'Successfully parsed "codepo_gb/Doc/Codelist.xls"'
+puts "Successfully parsed #{CODELIST_FILE}"
