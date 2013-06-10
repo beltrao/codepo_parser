@@ -19,14 +19,14 @@ codelist.sheets.each do |sheet_name|
   row_idx = 1
   while row_idx < codelist.last_row do
     name = codelist.cell(row_idx, 1)
-    e = codelist.cell(row_idx, 2)
-    query = "INSERT INTO es (e, name) VALUES ('#{e.gsub("'", "\\'")}', '#{name.gsub("'", "\\'")}');"
+    e_value = codelist.cell(row_idx, 2)
+    query = "INSERT INTO es (e, name) VALUES ('#{e_value.gsub("'", "\\'")}', '#{name.gsub("'", "\\'")}');"
     begin
       @db.execute query
-    rescue Exception => e
+    rescue Exception => ex
       puts 'Issues with query:'
       puts query
-      puts e.message
+      puts ex.message
     end
 
     row_idx += 1
