@@ -3,4 +3,5 @@ codepo_gb_*
 postcodes.sqlite3
 postcodes.sqlite3-journal
 .DS_Store
+export.pgsql
 
