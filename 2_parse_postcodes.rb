@@ -4,7 +4,7 @@ require 'csv'
 load 'init_db.rb'
 load 'utils.rb'
 
-DATA_DIR = 'codepo_gb/Data'
+DATA_DIR = 'codepo_gb_may_2013/Data/CSV'
 
 Dir[File.join(File.dirname(__FILE__), DATA_DIR, "*.csv")].sort.each do |codes_csv_file|
   puts "Working on file #{codes_csv_file}"
@@ -22,7 +22,7 @@ Dir[File.join(File.dirname(__FILE__), DATA_DIR, "*.csv")].sort.each do |codes_cs
     query = "INSERT INTO postcodes (code, lat, lon) VALUES ('#{postcode}', #{'%.5f' % lat_lon.lat}, #{'%.5f' % lat_lon.lon});"
     begin
       @db.execute query
-      sleep 0.0001
+      sleep 0.00001
     rescue Exception => ex
       puts "Issues with query #{query}:"
       puts ex.message

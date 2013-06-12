@@ -1,4 +1,6 @@
-codepo_gb/
+codepo_gb_*
 .idea/
 postcodes.sqlite3
+postcodes.sqlite3-journal
+.DS_Store
 

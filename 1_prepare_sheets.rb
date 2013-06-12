@@ -4,7 +4,7 @@ require 'debugger'
 load 'init_db.rb'
 
 EXCLUDED_CODELIST_SHEETS = %w[Metadata AREA_CODES]
-DATA_DIR = 'codepo_gb/Doc'
+DATA_DIR = 'codepo_gb_may_2013/Doc'
 CODELIST_FILES = %w[Codelist.xls NHS_Codelist.xls]
 
 CODELIST_FILES.each do |file_name|
